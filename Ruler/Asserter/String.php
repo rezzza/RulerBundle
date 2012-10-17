@@ -19,6 +19,10 @@ class String extends AbstractAsserter implements AsserterInterface
         $this->bindOperators(array(
             '=', '!=',
         ));
+
+        $this->operators['contains'] = function ($a, $b) {
+            return 0 !== preg_match(sprintf('/%s/', $b), $a);
+        };
     }
 
 }

@@ -17,6 +17,7 @@ class String extends AbstractAsserter
             array('=', '1', true),
             array('=', 'day', true),
             array('!=', '1.34', true),
+            array('contains', 'toto', true),
             array('<', '1337', false),
         );
     }
@@ -26,6 +27,10 @@ class String extends AbstractAsserter
         return array(
             array('toto', '=', 'toto', true),
             array('toto', '!=', 'toto', false),
+            array('toto', 'contains', 'toto', true),
+            array('toto', 'contains', 'tot', true),
+            array('tot', 'contains', 'toto', false),
+            array('1006', 'contains', '[0-9]{4}', true),
         );
     }
 }
