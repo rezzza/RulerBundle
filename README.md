@@ -18,6 +18,7 @@ Roadmap
 
 # Configuration (WIP)
 
+```
 rezzza_ruler:
 	inferences:
 		cart.price_total:
@@ -31,6 +32,7 @@ rezzza_ruler:
 			# Your own asserter
 			# You'll return a list of product and return an array.
 			description: Cart contain product
+```
 
 Glossary
 ==========
