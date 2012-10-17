@@ -18,8 +18,6 @@ class Datetime extends AbstractAsserter implements AsserterInterface
     {
         parent::__construct();
 
-        // @improve actually cannot inherits from decimal to get theses operators,
-        //supportsProposition enter in conflict
         $this->operators['>']  = function ($a, $b) { return $a > $b; };
         $this->operators['>=']  = function ($a, $b) { return $a >= $b; };
         $this->operators['<']  = function ($a, $b) { return $a < $b; };
