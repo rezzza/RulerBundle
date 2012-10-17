@@ -7,7 +7,14 @@ Roadmap
 =======
 
 - Integrate https://github.com/bobthecow/Ruler
-- Add a layer for group condition
-- Fetch group conditions and hydrate context from tag on Symfony2.
-- Create dynamically rules via a Form.
+- Add a layer for Inference + Proposition.
+- Allow to add dynamically inferences and hydrate context via @tag.
+- Task to show Inference and Proposition
+- Create dynamically Inference via a Form.
 - Create a DSL to insert/fetch on storage. (using hoa/compiler ?)
+
+Glossary
+==========
+
+Inference:   A group of proposition
+Proposition: A rule attached to an inference.
