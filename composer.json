@@ -1,0 +1,26 @@
+{
+    "name": "rezzza/ruler-bundle",
+    "description": "A simple stateless production rules engine for Symfony 2.",
+    "keywords": ["ruler", "symfony", "bundle"],
+    "type": "symfony-bundle",
+    "homepage": "https://github.com/rezzza/RulerBundle",
+    "license": "MIT",
+    "authors": [{
+        "name": "Community contributors",
+        "homepage": "https://github.com/rezzza/RulerBundle/contributors"
+    }],
+    "require": {
+        "php": ">=5.3.2",
+        "ruler/ruler": "dev-master"
+    },
+    "autoload":     {
+        "psr-0": { "Rezzza\\RulerBundle": "" }
+    },
+    "target-dir": "Rezzza/RulerBundle",
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
