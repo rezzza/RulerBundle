@@ -9,10 +9,9 @@ Roadmap
 =======
 
 - ✔ Add a layer for Inference + Proposition.
-- ✗ Allow to add dynamically inferences and hydrate context via @tag.
 - ✔ Add asserter (match).
+- ✗ Allow to add dynamically inferences and hydrate context via @tag.
 - ✗ Task to show Inference
-- ✗ Dynamically add/edit asserters.
 
 Next
 ====
