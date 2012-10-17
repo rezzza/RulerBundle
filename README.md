@@ -1,6 +1,8 @@
 RulerBundle
 ===========
 
+[![Build Status](https://secure.travis-ci.org/rezzza/RulerBundle.png)](http://travis-ci.org/rezzza/RulerBundle)
+
 A simple stateless production rules engine for Symfony 2.
 
 Roadmap
