@@ -14,4 +14,11 @@ use Ruler\Context;
  */
 class String extends AbstractAsserter implements AsserterInterface
 {
+    public function __construct()
+    {
+        $this->bindOperators(array(
+            '=', '!=',
+        ));
+    }
+
 }

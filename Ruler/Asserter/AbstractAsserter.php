@@ -14,16 +14,35 @@ use Rezzza\RulerBundle\Ruler\Exception\OperatorNotFoundException;
  */
 abstract class AbstractAsserter
 {
-    protected $operators;
+    protected $operators = array();
 
     /**
-     * Add some operators
+     * @param array $operators operators
      */
-    public function __construct()
+    public function bindOperators(array $operators)
     {
-        $this->operators       = new \ArrayIterator();
-        $this->operators['=']  = function ($a, $b) { return $a == $b; };
-        $this->operators['!='] = function ($a, $b) { return $a != $b; };
+        $defaultOperators = $this->getDefaultOperators();
+
+        foreach ($operators as $operator) {
+            if (array_key_exists($operator, $defaultOperators)) {
+                $this->operators[$operator] = $defaultOperators[$operator];
+            }
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getDefaultOperators()
+    {
+        return array(
+            '='  => function ($a, $b) { return $a == $b; },
+            '!=' => function ($a, $b) { return $a != $b; },
+            '>'  => function ($a, $b) { return $a > $b; },
+            '>=' => function ($a, $b) { return $a >= $b; },
+            '<'  => function ($a, $b) { return $a < $b; },
+            '<=' => function ($a, $b) { return $a <= $b; },
+        );
     }
 
     /**
@@ -31,7 +50,7 @@ abstract class AbstractAsserter
      */
     public function supportsProposition(Proposition $proposition)
     {
-        return $this->operators->offsetExists($proposition->getOperator());
+        return isset($this->operators[$proposition->getOperator()]);
     }
 
     /**
@@ -47,14 +66,13 @@ abstract class AbstractAsserter
 
         $operator = $proposition->getOperator();
 
-         if (!$this->operators->offsetExists($operator)) {
+         if (!isset($this->operators[$operator])) {
              throw new OperatorNotFoundException('Operator "%s" does no exists', $operator);
          }
 
-        $callable = $this->operators->offsetGet($operator);
-
-        $left  = $this->prepareValue($proposition->getValue());
-        $right = $this->prepareValue($context[$key]);
+        $callable = $this->operators[$operator];
+        $left     = $this->prepareValue($proposition->getValue());
+        $right    = $this->prepareValue($context[$key]);
 
         if (!is_callable($callable)) {
             throw new \LogicException('Operator "%s" provides a non callable value', $operator);

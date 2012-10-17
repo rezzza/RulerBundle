@@ -14,4 +14,10 @@ use Rezzza\RulerBundle\Ruler\Exception\OperatorNotFoundException;
  */
 class Boolean extends AbstractAsserter implements AsserterInterface
 {
+    public function __construct()
+    {
+        $this->bindOperators(array(
+            '=', '!=',
+        ));
+    }
 }

@@ -16,12 +16,10 @@ class Decimal extends AbstractAsserter implements AsserterInterface
 {
     public function __construct()
     {
-        parent::__construct();
-
-        $this->operators['>']  = function ($a, $b) { return $a > $b; };
-        $this->operators['>=']  = function ($a, $b) { return $a >= $b; };
-        $this->operators['<']  = function ($a, $b) { return $a < $b; };
-        $this->operators['<=']  = function ($a, $b) { return $a <= $b; };
+        $this->bindOperators(array(
+            '=', '!=',
+            '>', '>=', '<', '<='
+        ));
     }
 
     /**
