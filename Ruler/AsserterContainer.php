@@ -1,0 +1,55 @@
+<?php
+
+namespace Rezzza\RulerBundle\Ruler;
+
+use Rezzza\RulerBundle\Ruler\Asserter\AsserterInterface;
+
+/**
+ * AsserterContainer
+ *
+ * @author Stephane PY <py.stephane1@gmail.com>
+ */
+class AsserterContainer
+{
+    /**
+     * @var \ArrayIterator
+     */
+    protected $asserters;
+
+    /**
+     * Initialize asserters collection.
+     */
+    public function __construct()
+    {
+        $this->asserters = new \ArrayIterator();
+    }
+
+    /**
+     * @param string            $key      key
+     * @param AsserterInterface $asserter asserter
+     */
+    public function add($key, AsserterInterface $asserter)
+    {
+        $this->asserters->offsetSet($key, $asserter);
+    }
+
+    /**
+     * @param string $key key
+     *
+     * @return Asserter|null
+     */
+    public function get($key)
+    {
+        return $this->has($key) ? $this->asserters[$key] : null;
+    }
+
+    /**
+     * @param string $key key
+     *
+     * @return boolean
+     */
+    public function has($key)
+    {
+        return $this->asserters->offsetExists($key);
+    }
+}

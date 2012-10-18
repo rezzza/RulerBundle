@@ -8,14 +8,10 @@ A simple stateless production rules engine for Symfony 2.
 Roadmap
 =======
 
-- ✔ Add a layer for Inference + Proposition.
-- ✔ Add asserter (match).
-- ✔ Configuration
-- ✔ Allow to add dynamically asserters via @tag.
-- ✗ Test OR, XOR, AND, etc ...
-- ✗ Create dynamically Inference via a Form.
-- ✗ Create a DSL to insert/fetch on storage. (using hoa/compiler ?)
-- ✗ Create a standalone library + a bundle.
+- Be able to serialize/deserialize a Rule. (asserters with closure will fail.)
+- Create dynamically Inference via a Form.
+- Create a DSL to insert/fetch on storage. (using hoa/compiler ?)
+- Create a standalone library + a bundle.
 
 # Configuration
 

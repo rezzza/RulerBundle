@@ -24,6 +24,7 @@ class RezzzaRulerExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/services'));
         $loader->load('asserters.xml');
         $loader->load('inference.xml');
+        $loader->load('ruler.xml');
 
         $processor = new Processor();
         $config    = $processor->processConfiguration(new Configuration(), $configs);

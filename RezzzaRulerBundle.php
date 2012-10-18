@@ -4,7 +4,7 @@ namespace Rezzza\RulerBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Rezzza\RulerBundle\DependencyInjection\Compiler\InferenceBuilderCompilerPass;
+use Rezzza\RulerBundle\DependencyInjection\Compiler\BuilderCompilerPass;
 
 /**
  * RezzzaRulerBundle
@@ -19,7 +19,7 @@ class RezzzaRulerBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new InferenceBuilderCompilerPass());
+        $container->addCompilerPass(new BuilderCompilerPass());
     }
 
 }

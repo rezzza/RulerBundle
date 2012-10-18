@@ -1,15 +1,15 @@
 <?php
 
-namespace Rezzza\RulerBundle\Ruler\Inference;
+namespace Rezzza\RulerBundle\Ruler;
 
 use Rezzza\RulerBundle\Ruler\Inference;
 
 /**
- * Container
+ * InferenceContainer
  *
  * @author Stephane PY <py.stephane1@gmail.com>
  */
-class Container
+class InferenceContainer
 {
     /**
      * @var \ArrayIterator

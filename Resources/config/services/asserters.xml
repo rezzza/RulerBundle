@@ -5,6 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
+		<parameter key="rezzza.ruler.asserter_container.class">Rezzza\RulerBundle\Ruler\AsserterContainer</parameter>
 		<parameter key="rezzza.ruler.asserter.boolean.class">Rezzza\RulerBundle\Ruler\Asserter\Boolean</parameter>
 		<parameter key="rezzza.ruler.asserter.date.class">Rezzza\RulerBundle\Ruler\Asserter\Date</parameter>
 		<parameter key="rezzza.ruler.asserter.datetime.class">Rezzza\RulerBundle\Ruler\Asserter\DateTime</parameter>
@@ -13,6 +14,8 @@
     </parameters>
 
     <services>
+        <service id="rezzza.ruler.asserter_container" class="%rezzza.ruler.asserter_container.class%" />
+
         <service id="rezzza.ruler.asserter.boolean" class="%rezzza.ruler.asserter.boolean.class%">
             <tag name="rezzza.ruler.asserter" id="boolean" />
         </service>
