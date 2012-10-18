@@ -2,9 +2,6 @@
 
 namespace Rezzza\RulerBundle\Ruler\Asserter;
 
-use Rezzza\RulerBundle\Ruler\Exception\ContextValueNotFoundException;
-use Rezzza\RulerBundle\Ruler\Exception\OperatorNotFoundException;
-
 /**
  * Boolean
  *

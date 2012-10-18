@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+		<parameter key="rezzza.ruler.asserter.boolean.class">Rezzza\RulerBundle\Ruler\Asserter\Boolean</parameter>
+		<parameter key="rezzza.ruler.asserter.date.class">Rezzza\RulerBundle\Ruler\Asserter\Date</parameter>
+		<parameter key="rezzza.ruler.asserter.datetime.class">Rezzza\RulerBundle\Ruler\Asserter\DateTime</parameter>
+		<parameter key="rezzza.ruler.asserter.decimal.class">Rezzza\RulerBundle\Ruler\Asserter\Decimal</parameter>
+		<parameter key="rezzza.ruler.asserter.string.class">Rezzza\RulerBundle\Ruler\Asserter\String</parameter>
+    </parameters>
+
+    <services>
+        <service id="rezzza.ruler.asserter.boolean" class="%rezzza.ruler.asserter.boolean.class%">
+            <tag name="rezzza.ruler.asserter" id="boolean" />
+        </service>
+        <service id="rezzza.ruler.asserter.date" class="%rezzza.ruler.asserter.date.class%">
+            <tag name="rezzza.ruler.asserter" id="date" />
+        </service>
+        <service id="rezzza.ruler.asserter.datetime" class="%rezzza.ruler.asserter.datetime.class%">
+            <tag name="rezzza.ruler.asserter" id="datetime" />
+        </service>
+        <service id="rezzza.ruler.asserter.decimal" class="%rezzza.ruler.asserter.decimal.class%">
+            <tag name="rezzza.ruler.asserter" id="decimal" />
+        </service>
+        <service id="rezzza.ruler.asserter.string" class="%rezzza.ruler.asserter.string.class%">
+            <tag name="rezzza.ruler.asserter" id="string" />
+        </service>
+    </services>
+</container>
