@@ -27,7 +27,7 @@ class BuilderCompilerPass implements CompilerPassInterface
         foreach ($container->findTaggedServiceIds('rezzza.ruler.asserter') as $id => $tagAttributes) {
             foreach ($tagAttributes as $attributes) {
                 $asserter = $container->getDefinition($id);
-                $asserter->addMethodCall('setIdent', $attributes['id']);
+                $asserter->addMethodCall('setIdent', array($attributes['id']));
 
                 $asserterContainer->addMethodCall('add', array($asserter));
             }
