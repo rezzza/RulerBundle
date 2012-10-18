@@ -26,7 +26,7 @@ rezzza_ruler:
 			type:        decimal
 			description: Cart total price is
 		cart.created_at:
-			type:        datetime
+			type:        date
 			description: Cart was created at
 		cart.contain_product:
 			type:        product
@@ -34,6 +34,31 @@ rezzza_ruler:
 			# You'll return a list of product as array.
             # Not yet implemented, we'll have to finish ui via forms.
 			description: Cart contain product
+```
+
+# Usage
+
+```php
+<?php
+
+//use Ruler\Rule;
+//use Ruler\Operator;
+//use Ruler\Context;
+
+$inferenceContainer = $container->get('rezzza.ruler.inference_container');
+
+$rule = new Rule(
+    new Operator\LogicalAnd(array(
+        $inferenceContainer->get('cart.price_total')->createProposition('>=', 100),
+        $inferenceContainer->get('cart.created_at')->createProposition('>=', '2011-06-10'),
+    ))
+);
+
+$context = new Context();
+$context['cart.price_total'] = 110;
+$context['cart.created_at'] = new \DateTime();
+
+echo $rule->evaluate($context) ? 'OK': 'NOPE'; // OK;
 ```
 
 # Add an asserter.

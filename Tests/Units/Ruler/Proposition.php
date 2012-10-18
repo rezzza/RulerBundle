@@ -8,6 +8,8 @@ use Rezzza\RulerBundle\Tests\Units\Test;
 
 use Rezzza\RulerBundle\Ruler\Proposition as PropositionObject;
 use Ruler\Context;
+use Ruler\Rule;
+use Ruler\Operator;
 
 class Proposition extends Test
 {
@@ -55,5 +57,55 @@ class Proposition extends Test
                 ->withArguments($proposition, $context)
                 ->exactly(2)
             ;
+    }
+
+    public function testLogicalOperators()
+    {
+        $this->mockClass('Rezzza\RulerBundle\Ruler\Asserter\AsserterInterface', '\Mock', 'Asserter');
+
+        // proposition 1 (TRUE)
+        $asserter = new \Mock\Asserter();
+        $asserter->getMockController()->supportsProposition = true;
+        $asserter->getMockController()->evaluate = true;
+        $proposition1 = new PropositionObject('key', $asserter, 'operator', '1234');
+
+        // proposition 2 (FALSE)
+        $asserter2 = new \Mock\Asserter();
+        $asserter2->getMockController()->supportsProposition = true;
+        $asserter2->getMockController()->evaluate = false;
+        $proposition2 = new PropositionObject('key2', $asserter2, 'operator', '1234');
+
+        $rule = new Rule(
+            new Operator\LogicalAnd(array(
+                $proposition1,
+                $proposition2
+            ))
+        );
+
+        $this->boolean($rule->evaluate(new Context()))
+            ->isFalse();
+
+        $rule = new Rule(
+            new Operator\LogicalOr(array(
+                $proposition1,
+                $proposition2
+            ))
+        );
+
+        $this->boolean($rule->evaluate(new Context()))
+            ->isTrue();
+
+        $rule = new Rule(
+            new Operator\LogicalAnd(array(
+                $proposition1,
+                new Operator\LogicalOr(array(
+                    $proposition1,
+                    $proposition2,
+                ))
+            ))
+        );
+
+        $this->boolean($rule->evaluate(new Context()))
+            ->isTrue();
     }
 }
