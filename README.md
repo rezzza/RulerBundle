@@ -57,6 +57,25 @@ $context['cart.created_at'] = new \DateTime();
 echo $rule->evaluate($context) ? 'OK': 'NOPE'; // OK;
 ```
 
+# Serialization
+
+To store rules on a storage, you can serialize it, store it on storage, fetch it from storage, and deserialize it. Context does not stay on storage.
+
+```php
+$factory = $container->get('rezzza.ruler.factory');
+
+$rule = new Rule(
+    new Operator\LogicalAnd(array(
+        $inferenceContainer->get('cart.price_total')->createProposition('>=', 100),
+        $inferenceContainer->get('cart.created_at')->createProposition('>=', '2011-06-10'),
+    ))
+);
+
+$data = $factory->serialize($rule); // will return a linear serialization of object.
+
+$rule = $factory->unserialize($data); // will be equals to $rule above :).
+```
+
 # Add an asserter.
 
 In this example, we'll create `product` asserter, this one will fetch on storage a list of products.

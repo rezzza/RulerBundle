@@ -74,4 +74,20 @@ class Proposition implements PropositionInterface
     {
         return $this->value;
     }
+
+    /**
+     * @return AsserterInterface
+     */
+    public function getAsserter()
+    {
+        return $this->asserter;
+    }
+
+    /**
+     * @param AsserterInterface $asserter asserter
+     */
+    public function setAsserter(AsserterInterface $asserter)
+    {
+        $this->asserter = $asserter;
+    }
 }

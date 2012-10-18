@@ -25,12 +25,11 @@ class AsserterContainer
     }
 
     /**
-     * @param string            $key      key
      * @param AsserterInterface $asserter asserter
      */
-    public function add($key, AsserterInterface $asserter)
+    public function add(AsserterInterface $asserter)
     {
-        $this->asserters->offsetSet($key, $asserter);
+        $this->asserters->offsetSet($asserter->getIdent(), $asserter);
     }
 
     /**

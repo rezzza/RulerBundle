@@ -15,6 +15,28 @@ use Rezzza\RulerBundle\Ruler\Exception\OperatorNotFoundException;
 abstract class AbstractAsserter
 {
     protected $operators = array();
+    protected $ident;
+
+    public function __sleep()
+    {
+        return array('ident');
+    }
+
+    /**
+     * @param string $ident ident
+     */
+    public function setIdent($ident)
+    {
+        $this->ident = $ident;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdent()
+    {
+        return $this->ident;
+    }
 
     /**
      * @param array $operators operators
