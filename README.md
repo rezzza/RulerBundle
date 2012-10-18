@@ -30,17 +30,17 @@ rezzza_ruler:
 			description: Cart was created at
 		cart.contain_product:
 			type:        product
-			# Your own asserter (see Add an asserter)
-			# You'll return a list of product and return an array.
-            # Not yet implements, we'll have to finish ui via forms.
+			# Your own asserter (see chapter Add an asserter)
+			# You'll return a list of product as array.
+            # Not yet implemented, we'll have to finish ui via forms.
 			description: Cart contain product
 ```
 
 # Add an asserter.
 
-In this example, we'll create `product` asserter, this one will fetch on storage list of product.
+In this example, we'll create `product` asserter, this one will fetch on storage a list of products.
 
-1) Create asserter class
+## 1) Create asserter class
 
 ```php
 <?php
@@ -56,7 +56,7 @@ class Product extends AbstractAsserter implements AsserterInterface
     {
         // here we have to define operators and them callback.
 ,
-        // $left his the product id you choose on UI (WIP)
+        // $left  is the product id you choosed on UI (WIP)
         // $right is what you entered on context with key "cart.contain_product"
         // We suppose here $right is an array and we would check if $left is in $right.
 
@@ -67,7 +67,7 @@ class Product extends AbstractAsserter implements AsserterInterface
 }
 ```
 
-2) Define the service and tag it.
+## 2) Define the service and tag it.
 
 ```xml
 <services>
@@ -87,4 +87,4 @@ Glossary
 - Inference:   A group of proposition
 - Proposition: A rule attached to an inference.
 
-Any idea, suggestion ? Create an issue.
+Any idea, suggestion ? [Create an issue](https://github.com/rezzza/RulerBundle/issues/new).
