@@ -8,8 +8,7 @@ A simple stateless production rules engine for Symfony 2.
 Roadmap
 =======
 
-- Be able to serialize/deserialize a Rule. (asserters with closure will fail.)
-- Create dynamically Inference via a Form.
+- Create dynamically Propositions via a Form and persist them on storage.
 - Create a DSL to insert/fetch on storage. (using hoa/compiler ?)
 - Create a standalone library + a bundle.
 
