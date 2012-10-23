@@ -49,6 +49,7 @@ class BuilderCompilerPass implements CompilerPassInterface
             $events[$key] = $definition;
             $eventContainer->addMethodCall('add', array($events[$key]));
         }
+        $allEvents = array_keys($events);
 
         $inferenceDatas = $container->getParameter('rezzza.ruler.inferences');
 
@@ -60,14 +61,14 @@ class BuilderCompilerPass implements CompilerPassInterface
                 $key, $inferenceData['type'], $inferenceData['description']
             ));
 
-            if ($inferenceData['event']) {
-                foreach ($inferenceData['event'] as $event) {
-                    if (!isset($events[$event])) {
-                        throw new \LogicException(sprintf('Event "%s" is not defined', $event));
-                    }
+            $eventsToSet = ($inferenceData['event']) ?: $allEvents;
 
-                    $events[$event]->addMethodCall('addInference', array($definition));
+            foreach ($eventsToSet as $event) {
+                if (!isset($events[$event])) {
+                    throw new \LogicException(sprintf('Event "%s" is not defined', $event));
                 }
+
+                $events[$event]->addMethodCall('addInference', array($definition));
             }
 
             $inferenceContainer->addMethodCall('add', array($definition));
