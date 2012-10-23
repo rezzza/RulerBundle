@@ -26,6 +26,11 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->arrayNode('events')
+                    ->useAttributeAsKey('name')
+                        ->prototype('scalar')
+                    ->end()
+                ->end()
                 ->arrayNode('inferences')
                     ->isRequired()
                     ->requiresAtLeastOneElement()
@@ -34,6 +39,9 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('type')->isRequired()->end()
                             ->scalarNode('description')->end()
+                            ->arrayNode('event')
+                                ->prototype('scalar')
+                            ->end()
                         ->end()
                     ->end()
                 ->end()

@@ -23,6 +23,7 @@ class RezzzaRulerExtension extends Extension
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/services'));
         $loader->load('asserters.xml');
+        $loader->load('event.xml');
         $loader->load('inference.xml');
         $loader->load('ruler.xml');
 
@@ -30,5 +31,6 @@ class RezzzaRulerExtension extends Extension
         $config    = $processor->processConfiguration(new Configuration(), $configs);
 
         $container->setParameter('rezzza.ruler.inferences', $config['inferences']);
+        $container->setParameter('rezzza.ruler.events', $config['events']);
     }
 }

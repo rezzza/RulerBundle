@@ -16,8 +16,14 @@ Roadmap
 
 ```
 rezzza_ruler:
+    events:
+        event.cart.paid: 'Cart paid'
 	inferences:
 		cart.price_total:
+            # This will show this inferences only when event event.cart.paid
+            # will be selected on UI.
+            # This is optional.
+            event:       [event.cart.paid]
 			type:        decimal
 			description: Cart total price is
 		cart.created_at:

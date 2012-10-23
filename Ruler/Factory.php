@@ -47,6 +47,17 @@ class Factory
     }
 
     /**
+     * @param string $key         key
+     * @param string $description description
+     *
+     * @return Event
+     */
+    public function createEvent($key, $description = null)
+    {
+        return new Event($key, $description);
+    }
+
+    /**
      * @param PropositionInterface $proposition proposition
      */
     public function serialize(PropositionInterface $proposition)
