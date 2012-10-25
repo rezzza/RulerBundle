@@ -31,15 +31,15 @@ abstract class AbstractAsserter extends Test
     /**
      * @dataProvider evaluateDataProvider
      */
-    public function testEvaluate($leftValue, $operator, $rightValue, $expectedEvaluate)
+    public function testEvaluate($contextValue, $operator, $definedValue, $expectedEvaluate)
     {
         $proposition = $this->getMockProposition();
         $proposition->getMockController()->getOperator = $operator;
-        $proposition->getMockController()->getValue    = $leftValue;
+        $proposition->getMockController()->getValue    = $definedValue;
         $proposition->getMockController()->getKey      = 'key';
 
         $context = new Context();
-        $context['key'] = $rightValue;
+        $context['key'] = $contextValue;
 
         $asserter = $this->getAsserter();
 

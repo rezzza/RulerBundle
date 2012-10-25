@@ -93,8 +93,8 @@ abstract class AbstractAsserter
          }
 
         $callable = $this->operators[$operator];
-        $left     = $this->prepareValue($proposition->getValue());
-        $right    = $this->prepareValue($context[$key]);
+        $left     = $this->prepareValue($context[$key]);
+        $right    = $this->prepareValue($proposition->getValue());
 
         if (!is_callable($callable)) {
             throw new \LogicException('Operator "%s" provides a non callable value', $operator);
