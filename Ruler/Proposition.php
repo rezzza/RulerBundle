@@ -48,7 +48,11 @@ class Proposition implements PropositionInterface
      */
     public function evaluate(Context $context)
     {
-        return $this->asserter->evaluate($this, $context);
+        try {
+            return $this->asserter->evaluate($this, $context);
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
