@@ -11,6 +11,7 @@
 		<parameter key="rezzza.ruler.asserter.datetime.class">Rezzza\RulerBundle\Ruler\Asserter\DateTime</parameter>
 		<parameter key="rezzza.ruler.asserter.decimal.class">Rezzza\RulerBundle\Ruler\Asserter\Decimal</parameter>
 		<parameter key="rezzza.ruler.asserter.string.class">Rezzza\RulerBundle\Ruler\Asserter\String</parameter>
+		<parameter key="rezzza.ruler.asserter.version.class">Rezzza\RulerBundle\Ruler\Asserter\Version</parameter>
     </parameters>
 
     <services>
@@ -30,6 +31,9 @@
         </service>
         <service id="rezzza.ruler.asserter.string" class="%rezzza.ruler.asserter.string.class%">
             <tag name="rezzza.ruler.asserter" id="string" />
+        </service>
+        <service id="rezzza.ruler.asserter.version" class="%rezzza.ruler.asserter.version.class%">
+            <tag name="rezzza.ruler.asserter" id="version" />
         </service>
     </services>
 </container>
