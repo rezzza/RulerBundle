@@ -3,10 +3,10 @@
 namespace Rezzza\RulerBundle\Ruler\Exception;
 
 /**
- * ContextValueNotFoundException
+ * FalseAssertionException
  *
  * @author Stephane PY <py.stephane1@gmail.com>
  */
-class ContextValueNotFoundException extends \Exception
+class FalseAssertionException extends \Exception
 {
 }

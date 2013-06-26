@@ -16,25 +16,33 @@ Roadmap
 
 ```
 rezzza_ruler:
+    context_builder: service.id
+    # or
+    #context_builder:
+    #    default: service.id
     events:
         event.cart.paid: 'Cart paid'
-	inferences:
-		cart.price_total:
+        # or
+        event.cart.paid:
+            label: 'Cart paid'
+            context_builder: default
+    inferences:
+        cart.price_total:
             # This will show this inferences only when event event.cart.paid
             # will be selected on UI.
             # This is optional.
             event:       [event.cart.paid]
-			type:        decimal
-			description: Cart total price is
-		cart.created_at:
-			type:        date
-			description: Cart was created at
-		cart.contain_product:
-			type:        product
-			# Your own asserter (see chapter Add an asserter)
-			# You'll return a list of product as array.
+            type:        decimal
+            description: Cart total price is
+        cart.created_at:
+            type:        date
+            description: Cart was created at
+        cart.contain_product:
+            type:        product
+            # Your own asserter (see chapter Add an asserter)
+            # You'll return a list of product as array.
             # Not yet implemented, we'll have to finish ui via forms.
-			description: Cart contain product
+            description: Cart contain product
 ```
 
 # Usage
@@ -42,24 +50,17 @@ rezzza_ruler:
 ```php
 <?php
 
-//use Ruler\Rule;
-//use Ruler\Operator;
-//use Ruler\Context;
+$rb = $container->get('rezzza.ruler.rule_builder');
 
-$inferenceContainer = $container->get('rezzza.ruler.inference_container');
-
-$rule = new Rule(
-    new Operator\LogicalAnd(array(
-        $inferenceContainer->get('cart.price_total')->createProposition('>=', 100),
-        $inferenceContainer->get('cart.created_at')->createProposition('>=', '2011-06-10'),
-    ))
+$rule = $rb->and(
+    $rb->greaterThanEqual($rb->context('cart.price_total'), 100),
+    $rb->greaterThanEqual($rb->context('cart.created_at'), '2011-06-10')
 );
 
-$context = new Context();
-$context['cart.price_total'] = 110;
-$context['cart.created_at'] = new \DateTime();
+$context = $container->get('rezzza.ruler.context_builder')->createContext('default');
+$context = $container->get('rezzza.ruler.context_builder')->createContextFromEvent('event.cart.paid');
 
-echo $rule->evaluate($context) ? 'OK': 'NOPE'; // OK;
+echo $container->get('rezzza.ruler')->assert($rule, $context); // true or false
 ```
 
 # Serialization
@@ -67,61 +68,53 @@ echo $rule->evaluate($context) ? 'OK': 'NOPE'; // OK;
 To store rules on a storage, you can serialize it, store it on storage, fetch it from storage, and deserialize it. Context does not stay on storage.
 
 ```php
-$factory = $container->get('rezzza.ruler.factory');
 
-$rule = new Rule(
-    new Operator\LogicalAnd(array(
-        $inferenceContainer->get('cart.price_total')->createProposition('>=', 100),
-        $inferenceContainer->get('cart.created_at')->createProposition('>=', '2011-06-10'),
-    ))
+$rb = $container->get('rezzza.ruler.rule_builder');
+
+$rule = $rb->and(
+    $rb->greaterThanEqual($rb->context('cart.price_total'), 100),
+    $rb->greaterThanEqual($rb->context('cart.created_at'), '2011-06-10')
 );
 
-$data = $factory->serialize($rule); // will return a linear serialization of object.
+$string = (string) $rule; // cart.price.total >= 100 AND cart.created_at >= 2011-06-10
 
-$rule = $factory->unserialize($data); // will be equals to $rule above :).
+$rule = $container->get('rezzza.ruler')->interprete($string);
 ```
 
-# Add an asserter.
+# Add custom functions
 
-In this example, we'll create `product` asserter, this one will fetch on storage a list of products.
+Define a service with `rezzza.ruler.functions` tag.
 
-## 1) Create asserter class
+```xml
+<service id="acme.ruler.functions" class="Acme\Ruler\Functions">
+    <tag name="rezzza.ruler.functions" />
+</service>
+```
+
+Then the php class:
 
 ```php
 <?php
 
-namespace Acme\Bundle\Asserter\Product;
+namespace Acme\Ruler\Functions;
 
-use Rezzza\RulerBundle\Ruler\Asserter\AbstractAsserter;
-use Rezzza\RulerBundle\Ruler\Asserter\AsserterInterface;
+use Rezzza\RulerBundle\Ruler\FunctionCollectionInterface;
 
-class Product extends AbstractAsserter implements AsserterInterface
+class FunctionCollection implements FunctionCollectionInterface
 {
-    public function __construct()
+    public function getFunctions()
     {
-        // here we have to define operators and them callback.
-,
-        // $left  is the product id you choosed on UI (WIP)
-        // $right is what you entered on context with key "cart.contain_product"
-        // We suppose here $right is an array and we would check if $left is in $right.
+        return array(
+            'version_compare' => function($arguments) {
+                if (count($arguments) != 3) {
+                    throw new \InvalidArgumentException('version_compare expects 3 arguments.');
+                }
 
-        $this->operators['contains'] = function ($left, $right) {
-            return in_array($left, $right);
-        };
+                return version_compare($arguments[0], $arguments[1], $arguments[2]);
+            },
+        );
     }
 }
-```
-
-## 2) Define the service and tag it.
-
-```xml
-<services>
-    <service id="acme.bundle.asserter.product" class="\Acme\Bundle\Asserter\Product">
-        <tag name="rezzza.ruler.asserter" id="product" />
-        <! --- here, product is the KEY used on config.yml, important ! -->
-    </service>
-</service>
-
 ```
 
 That's all folks !

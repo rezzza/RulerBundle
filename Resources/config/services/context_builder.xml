@@ -5,11 +5,11 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="rezzza.ruler.event.container.class">Rezzza\RulerBundle\Ruler\Event\Container</parameter>
+        <parameter key="rezzza.ruler.context_builder.container.class">Rezzza\RulerBundle\Ruler\ContextBuilder\Container</parameter>
     </parameters>
 
     <services>
-        <service id="rezzza.ruler.event.container" class="%rezzza.ruler.event.container.class%" />
+        <service id="rezzza.ruler.context_builder.container" class="%rezzza.ruler.context_builder.container.class%" />
     </services>
 
 </container>

@@ -1,35 +1,25 @@
 <?php
 
-namespace Rezzza\RulerBundle\Ruler;
-
-use Rezzza\RulerBundle\Ruler\Inference;
+namespace Rezzza\RulerBundle\Ruler\Inference;
 
 /**
- * InferenceContainer
+ * Container
  *
  * @author Stephane PY <py.stephane1@gmail.com>
  */
-class InferenceContainer
+class Container
 {
     /**
-     * @var \ArrayIterator
+     * @var array
      */
-    protected $inferences;
-
-    /**
-     * Initialize inferences collection.
-     */
-    public function __construct()
-    {
-        $this->inferences = new \ArrayIterator();
-    }
+    protected $inferences = array();
 
     /**
      * @param Inference $inference inference
      */
     public function add(Inference $inference)
     {
-        $this->inferences->offsetSet($inference->getKey(), $inference);
+        $this->inferences[$inference->getKey()] = $inference;
     }
 
     /**
@@ -49,6 +39,6 @@ class InferenceContainer
      */
     public function has($key)
     {
-        return $this->inferences->offsetExists($key);
+        return isset($this->inferences[$key]);
     }
 }

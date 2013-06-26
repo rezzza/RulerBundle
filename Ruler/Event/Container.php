@@ -1,35 +1,25 @@
 <?php
 
-namespace Rezzza\RulerBundle\Ruler;
-
-use Rezzza\RulerBundle\Ruler\Event;
+namespace Rezzza\RulerBundle\Ruler\Event;
 
 /**
- * EventContainer
+ * Container
  *
  * @author Stephane PY <py.stephane1@gmail.com>
  */
-class EventContainer
+class Container
 {
     /**
-     * @var \ArrayIterator
+     * @var array
      */
-    protected $events;
-
-    /**
-     * Initialize events collection.
-     */
-    public function __construct()
-    {
-        $this->events = new \ArrayIterator();
-    }
+    protected $events = array();
 
     /**
      * @param Event $event event
      */
     public function add(Event $event)
     {
-        $this->events->offsetSet($event->getKey(), $event);
+        $this->events[$event->getKey()] = $event;
     }
 
     /**
@@ -49,6 +39,14 @@ class EventContainer
      */
     public function has($key)
     {
-        return $this->events->offsetExists($key);
+        return isset($this->events[$key]);
+    }
+
+    /**
+     * @return array
+     */
+    public function all()
+    {
+        return $this->events;
     }
 }
