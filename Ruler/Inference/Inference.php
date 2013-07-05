@@ -42,4 +42,12 @@ class Inference
         $this->description = $description;
         $this->events      = $events;
     }
+
+    /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
 }
