@@ -5,12 +5,12 @@ RulerBundle
 
 A simple stateless production rules engine for Symfony 2.
 
+Integration of  [Hoa\Ruler](https://github.com/hoaproject/Ruler) library.
+
 Roadmap
 =======
 
 - Create dynamically Propositions via a Form and persist them on storage.
-- Create a DSL to insert/fetch on storage. (using hoa/compiler ?)
-- Create a standalone library + a bundle.
 
 # Configuration
 
@@ -53,8 +53,8 @@ rezzza_ruler:
 $rb = $container->get('rezzza.ruler.rule_builder');
 
 $rule = $rb->and(
-    $rb->greaterThanEqual($rb->context('cart.price_total'), 100),
-    $rb->greaterThanEqual($rb->context('cart.created_at'), '2011-06-10')
+    $rb->{'>='}( $rb->variable('cart.price_total'), 100),
+    $rb->{'>='}($rb->context('cart.created_at'), '2011-06-10')
 );
 
 $context = $container->get('rezzza.ruler.context_builder')->createContext('default');
@@ -72,8 +72,8 @@ To store rules on a storage, you can serialize it, store it on storage, fetch it
 $rb = $container->get('rezzza.ruler.rule_builder');
 
 $rule = $rb->and(
-    $rb->greaterThanEqual($rb->context('cart.price_total'), 100),
-    $rb->greaterThanEqual($rb->context('cart.created_at'), '2011-06-10')
+    $rb->{'>='}($rb->context('cart.price_total'), 100),
+    $rb->{'>='}($rb->context('cart.created_at'), '2011-06-10')
 );
 
 $string = (string) $rule; // cart.price.total >= 100 AND cart.created_at >= 2011-06-10
@@ -105,12 +105,8 @@ class FunctionCollection implements FunctionCollectionInterface
     public function getFunctions()
     {
         return array(
-            'version_compare' => function($arguments) {
-                if (count($arguments) != 3) {
-                    throw new \InvalidArgumentException('version_compare expects 3 arguments.');
-                }
-
-                return version_compare($arguments[0], $arguments[1], $arguments[2]);
+            'version_compare' => function($left, $comparator, $right) {
+                return version_compare($left, $comparator, $right);
             },
         );
     }

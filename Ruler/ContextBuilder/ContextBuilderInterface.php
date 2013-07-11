@@ -10,7 +10,7 @@ namespace Rezzza\RulerBundle\Ruler\ContextBuilder;
 interface ContextBuilderInterface
 {
     /**
-     * @return \Hoa\Ruler\Asserter\Context
+     * @return \Hoa\Ruler\Context
      */
     public function build();
 }

@@ -38,7 +38,7 @@ class Ruler extends \Hoa\Ruler\Ruler
     /**
      * @{inheritdoc}
      */
-    public function assert ( $data, \Hoa\Ruler\Asserter\Context $context )
+    public function assert ( $data, \Hoa\Ruler\Context $context = null)
     {
         try {
             if (!$this->isInitialized()) {
@@ -58,7 +58,7 @@ class Ruler extends \Hoa\Ruler\Ruler
     {
         foreach ($this->functionCollections as $functionCollection) {
             foreach ($functionCollection->getFunctions() as $name => $function) {
-                $this->addFunction($name, $function);
+                $this->getDefaultAsserter()->setOperator($name, $function);
             }
         }
     }
@@ -74,7 +74,7 @@ class Ruler extends \Hoa\Ruler\Ruler
     /**
      * @param string $key key
      *
-     * @return \Hoa\Ruler\Asserter\Context
+     * @return \Hoa\Ruler\Context
      */
     public function createContext($key = 'default')
     {
@@ -92,7 +92,7 @@ class Ruler extends \Hoa\Ruler\Ruler
     /**
      * @param string $event event
      *
-     * @return \Hoa\Ruler\Asserter\Context
+     * @return \Hoa\Ruler\Context
      */
     public function createContextFromEvent($event)
     {
