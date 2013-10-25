@@ -2,9 +2,6 @@
 
 namespace Rezzza\RulerBundle\Ruler;
 
-from('Hoa')
-    ->import('Ruler.Ruler');
-
 use Rezzza\RulerBundle\Ruler\ContextBuilder\Container as ContextBuilderContainer;
 use Rezzza\RulerBundle\Ruler\Event\Container as EventContainer;
 
