@@ -53,7 +53,7 @@ rezzza_ruler:
 $rb = $container->get('rezzza.ruler.rule_builder');
 
 $rule = $rb->and(
-    $rb->{'>='}( $rb->variable('cart.price_total'), 100),
+    $rb->{'>='}($rb->variable('cart.price_total'), 100),
     $rb->{'>='}($rb->context('cart.created_at'), '2011-06-10')
 );
 
