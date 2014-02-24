@@ -11,10 +11,11 @@ Roadmap
 =======
 
 - Create dynamically Propositions via a Form and persist them on storage.
+- Dynamics inferences
 
 # Configuration
 
-```
+```yaml
 rezzza_ruler:
     context_builder: service.id
     # or
