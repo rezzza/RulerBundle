@@ -5,13 +5,20 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-		<parameter key="rezzza.ruler.factory.class">Rezzza\RulerBundle\Ruler\Factory</parameter>
+        <parameter key="rezzza.ruler.class">Rezzza\RulerBundle\Ruler\Ruler</parameter>
+        <parameter key="rezzza.ruler.rule_builder.class">Rezzza\RulerBundle\Ruler\RuleBuilder</parameter>
     </parameters>
 
     <services>
-        <service id="rezzza.ruler.factory" class="%rezzza.ruler.factory.class%">
-            <argument type="service" id="rezzza.ruler.asserter_container" />
+        <service id="rezzza.ruler" class="%rezzza.ruler.class%">
+            <call method="setContextBuilderContainer">
+                <argument type="service" id="rezzza.ruler.context_builder.container" />
+            </call>
+            <call method="setEventContainer">
+                <argument type="service" id="rezzza.ruler.event.container" />
+            </call>
         </service>
+        <service id="rezzza.ruler.rule_builder" class="%rezzza.ruler.rule_builder.class%" />
     </services>
 
 </container>

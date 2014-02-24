@@ -5,11 +5,35 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-		<parameter key="rezzza.ruler.inference_container.class">Rezzza\RulerBundle\Ruler\InferenceContainer</parameter>
+        <parameter key="rezzza.ruler.inference_container.class">Rezzza\RulerBundle\Ruler\Inference\Container</parameter>
+
+        <parameter key="rezzza.ruler.inference_type_container.class">Rezzza\RulerBundle\Ruler\Inference\TypeContainer</parameter>
+        <parameter key="rezzza.ruler.inference_type.boolean.class">Rezzza\RulerBundle\Ruler\Inference\Type\Boolean</parameter>
+        <parameter key="rezzza.ruler.inference_type.date.class">Rezzza\RulerBundle\Ruler\Inference\Type\Date</parameter>
+        <parameter key="rezzza.ruler.inference_type.datetime.class">Rezzza\RulerBundle\Ruler\Inference\Type\DateTime</parameter>
+        <parameter key="rezzza.ruler.inference_type.decimal.class">Rezzza\RulerBundle\Ruler\Inference\Type\Decimal</parameter>
+        <parameter key="rezzza.ruler.inference_type.scalar.class">Rezzza\RulerBundle\Ruler\Inference\Type\Scalar</parameter>
     </parameters>
 
     <services>
         <service id="rezzza.ruler.inference_container" class="%rezzza.ruler.inference_container.class%" />
-    </services>
 
+        <service id="rezzza.ruler.inference_type_container" class="%rezzza.ruler.inference_type_container.class%" />
+
+        <service id="rezzza.ruler.inference_type.boolean" class="%rezzza.ruler.inference_type.boolean.class%">
+            <tag name="rezzza.ruler.inference_type" />
+        </service>
+        <service id="rezzza.ruler.inference_type.date" class="%rezzza.ruler.inference_type.date.class%">
+            <tag name="rezzza.ruler.inference_type" />
+        </service>
+        <service id="rezzza.ruler.inference_type.datetime" class="%rezzza.ruler.inference_type.datetime.class%">
+            <tag name="rezzza.ruler.inference_type" />
+        </service>
+        <service id="rezzza.ruler.inference_type.decimal" class="%rezzza.ruler.inference_type.decimal.class%">
+            <tag name="rezzza.ruler.inference_type" />
+        </service>
+        <service id="rezzza.ruler.inference_type.scalar" class="%rezzza.ruler.inference_type.scalar.class%">
+            <tag name="rezzza.ruler.inference_type" />
+        </service>
+    </services>
 </container>

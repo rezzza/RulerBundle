@@ -25,10 +25,47 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('rezzza_ruler');
 
         $rootNode
+            ->beforeNormalization()
+                ->ifTrue(function($v) {
+                    return isset($v['context_builder']) && is_scalar($v['context_builder']);
+                })
+                ->then(function($v) {
+                    $v['context_builder'] = array('default' => $v['context_builder']);
+                    return $v;
+                })
+                ->end()
             ->children()
+                ->arrayNode('context_builder')
+                    ->isRequired()
+                    ->requiresAtLeastOneElement()
+                    ->prototype('scalar')->end()
+                ->end()
                 ->arrayNode('events')
-                    ->useAttributeAsKey('name')
-                        ->prototype('scalar')
+                    ->beforeNormalization()
+                        ->ifTrue(function($events) {
+                            foreach ($events as $event) {
+                                if (is_scalar($event)) {
+                                    return true;
+                                }
+                            }
+
+                            return false;
+                        })
+                        ->then(function($events) {
+                            foreach ($events as $k => $event) {
+                                if (is_scalar($event)) {
+                                    $events[$k] = array('label' => $event);
+                                }
+                            }
+
+                            return $events;
+                        })
+                    ->end()
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('label')->isRequired()->end()
+                            ->scalarNode('context_builder')->defaultValue('default')->end()
+                        ->end()
                     ->end()
                 ->end()
                 ->arrayNode('inferences')
