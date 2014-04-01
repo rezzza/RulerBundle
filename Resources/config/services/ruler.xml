@@ -11,6 +11,9 @@
 
     <services>
         <service id="rezzza.ruler" class="%rezzza.ruler.class%">
+            <call method="usePropertyAccess">
+                <argument>%rezzza.ruler.property_access%</argument>
+            </call>
             <call method="setContextBuilderContainer">
                 <argument type="service" id="rezzza.ruler.context_builder.container" />
             </call>
