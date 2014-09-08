@@ -40,7 +40,7 @@ rezzza_ruler:
             description: Cart was created at
         cart.contain_product:
             type:        product
-            # Your own asserter (see chapter Add an asserter)
+            # Your own type
             # You'll return a list of product as array.
             # Not yet implemented, we'll have to finish ui via forms.
             description: Cart contain product
