@@ -12,11 +12,17 @@
     "require": {
         "php": ">=5.3.2",
         "symfony/framework-bundle": "~2.1",
-        "hoa/ruler": "~0.1"
+        "hoa/ruler": "dev-visitor_asserter_refactoring as 0.14.09.16"
     },
     "require-dev": {
         "atoum/atoum": "dev-master"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/shouze/Ruler"
+        }
+    ],
     "autoload":     {
         "psr-0": { "Rezzza\\RulerBundle": "" }
     },
