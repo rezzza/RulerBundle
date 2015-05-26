@@ -7,10 +7,10 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class Asserter extends BaseAsserter
 {
-    protected function visitContextAttribute($value, $out, $i, $id)
+    protected function visitContextAttribute(&$contextPointer, array $dimension, $dimensionNumber, $elementId, &$handle = null, $eldnah = null)
     {
         $accessor = PropertyAccess::createPropertyAccessor();
 
-        return $accessor->getValue($out, $value);
+        return $accessor->getValue($contextPointer, $dimension[$dimensionNumber]);
     }
 }
