@@ -17,12 +17,6 @@
     "require-dev": {
         "atoum/atoum": "dev-master"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/shouze/Ruler"
-        }
-    ],
     "autoload":     {
         "psr-0": { "Rezzza\\RulerBundle": "" }
     },
