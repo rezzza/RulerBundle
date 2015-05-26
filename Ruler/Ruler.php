@@ -4,6 +4,7 @@ namespace Rezzza\RulerBundle\Ruler;
 
 use Rezzza\RulerBundle\Ruler\ContextBuilder\Container as ContextBuilderContainer;
 use Rezzza\RulerBundle\Ruler\Event\Container as EventContainer;
+use Hoa\Ruler\Context;
 
 /**
  * Ruler
@@ -33,6 +34,11 @@ class Ruler extends \Hoa\Ruler\Ruler
     private $initialized = false;
 
     /**
+     * @var boolean
+     */
+    protected static $usePropertyAccess = false;
+
+    /**
      * @{inheritdoc}
      */
     public function assert ( $data, \Hoa\Ruler\Context $context = null)
@@ -46,6 +52,28 @@ class Ruler extends \Hoa\Ruler\Ruler
         } catch (Exception\FalseAssertionException $e) {
             return false;
         }
+    }
+
+    /**
+     * @param boolean $bool bool
+     */
+    public function usePropertyAccess($bool)
+    {
+        static::$usePropertyAccess = (bool) $bool;
+    }
+
+    /**
+     * @param \Hoa\Ruler\Context $context Context.
+     *
+     * @return \Hoa\Ruler\Visitor\Asserter
+     */
+    public static function getDefaultAsserter(Context $context = null)
+    {
+        if(null === static::$_defaultAsserter && static::$usePropertyAccess === true) {
+            static::$_defaultAsserter = new Visitor\Asserter($context);
+        }
+
+        return parent::getDefaultAsserter($context);
     }
 
     /**

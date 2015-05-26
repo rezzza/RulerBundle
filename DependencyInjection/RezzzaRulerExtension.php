@@ -36,6 +36,7 @@ class RezzzaRulerExtension extends Extension
             $cbContainer->addMethodCall('add', array($name, new Reference($service)));
         }
 
+        $container->setParameter('rezzza.ruler.property_access', $config['property_access']);
         $container->setParameter('rezzza.ruler.inferences', $config['inferences']);
         $container->setParameter('rezzza.ruler.events', $config['events']);
     }

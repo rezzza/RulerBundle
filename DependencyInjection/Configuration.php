@@ -35,6 +35,7 @@ class Configuration implements ConfigurationInterface
                 })
                 ->end()
             ->children()
+                ->booleanNode('property_access')->defaultValue(true)->end()
                 ->arrayNode('context_builder')
                     ->isRequired()
                     ->requiresAtLeastOneElement()
